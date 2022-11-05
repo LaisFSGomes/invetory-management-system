@@ -1,0 +1,1 @@
+export { PagesRoutes } from "./routes";

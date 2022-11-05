@@ -1,23 +1,44 @@
-import { PagesRoutes } from "features/constants/routes";
-import { Router } from "components/Router";
-import { Avatar, HeaderWrapper, Navbar, NavbarItem } from "./Header.styles";
-import logoStore from "assets/icons/logoStore.svg";
 import React from "react";
-import { Box } from "@mui/material";
-import { Logo } from "components/Logo";
+import {
+  AmountItems,
+  AmountTotal,
+  HeaderWrapper,
+  Navbar,
+  NavItem,
+  NavItemCart,
+  UserImage,
+} from "./Header.styles";
+import { PagesRoutes } from "features/constants/routes";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Logo } from "components";
+import { CartContext } from "contexts";
+
 export const Header: React.FC = () => {
-  return ( 
+  const { getItemsQuantity, getTotal } = React.useContext(CartContext);
+  const itemsQuantity = getItemsQuantity();
+  const formatToDollar = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+  return (
     <HeaderWrapper>
       <Logo />
       <Navbar>
-        <NavbarItem href="">INICIO</NavbarItem>
-        <NavbarItem href="" >PRODUTOS</NavbarItem>
-        <NavbarItem href="" >CARRINHO</NavbarItem>
-      </Navbar>
-      <Avatar
+        <NavItem to={PagesRoutes.products}>Home</NavItem>
+        <NavItemCart to={PagesRoutes.cart}>
+          <AmountItems>
+            <span>{itemsQuantity}</span>
+          </AmountItems>
+          <ShoppingCartIcon />
+          <AmountTotal>
+          <span>{formatToDollar.format(getTotal())}</span>
+          </AmountTotal>
+        </NavItemCart>
+        <UserImage
           src="https://avatars.githubusercontent.com/u/50854183?v=4"
-          alt="user avatar"
+          alt="user image"
         />
+      </Navbar>
     </HeaderWrapper>
-   );
+  );
 };

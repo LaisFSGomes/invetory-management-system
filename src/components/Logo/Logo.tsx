@@ -1,14 +1,12 @@
 import React from "react";
-import { LogoText, LogoWrapper } from "./Logo.styles";
-import logoStore from "assets/icons/logoStore.svg";
-
-export const Logo: React.FC = () => {
-  return(
-    <LogoWrapper>
-      <img src={logoStore} alt="aa" /> 
-        <LogoText>
-          FIRE STORE
-        </LogoText>
-    </LogoWrapper>
-  );
-}
+import { PagesRoutes } from "features/constants";
+import { LogoWrapper, LogoText } from "./Logo.styles";
+import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
+export const Logo: React.FC = () => (
+  <LogoWrapper to={PagesRoutes.products}>
+      <WhatshotRoundedIcon />
+    <LogoText>
+      Fakemart
+    </LogoText>
+  </LogoWrapper>
+);

@@ -1,1 +1,0 @@
-export { Shopping } from "./Shopping";

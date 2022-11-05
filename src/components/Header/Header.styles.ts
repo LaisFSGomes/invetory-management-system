@@ -1,36 +1,84 @@
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const HeaderWrapper = styled("header")({
-  display: "grid",
-  gridTemplateColumns: "1fr 4fr 1fr 1fr",
-  alignItems: "center",
-  position: "fixed",
-  left: 0,
-  top: 0,
   width: "100%",
-  height: "6.25rem",
-  background: "#F0F0F0",
-  padding: "0px 1rem",
-  justifyItems: "center",
-});
-
-export const Navbar = styled("nav") ({
   display: "flex",
-  justifyContent: "space-around",
-  gridColumnStart: "3",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  padding: "0px 2em",
+  background: "#FFFFFF",
+  maxHeight: "90px",
+  "& > :nth-child(1)": {
+    "@media (min-width: 0px) and (max-width: 480px)": {
+      maxWidth: "2rem",
+    },
+  },
 });
-export const NavbarItem = styled("a")({
+export const Navbar = styled("nav")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 20,
+});
+export const NavItem = styled(Link)({
+  fontFamily: "Inter",
+  fontSize: "1.2em",
+  fontWeight: 600,
+  textDecoration: "none",
+  color: "#000000",
+  display: "flex",
+  "&:hover": {
+    color: "#C71D1D",
+  },
+  "@media (min-width: 0px) and (max-width: 480px)":{
+    display: "none",
+  },
+});
+export const NavItemCart = styled(Link)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-end",
   fontFamily: "Inter",
   fontWeight: 600,
-  fontSize: "1rem",
-  lineHeight: "1.188rem",
+  textDecoration: "none",
   color: "#000000",
-  padding: "0 1rem"
+  "& svg": {
+    fontSize: "2rem",
+    color: "#C71D1D",
+    "&:hover": {
+      color: "#911515",
+    },
+  },
+  "&:hover": {
+    color: "#911515",
+  },
 });
-export const Avatar = styled("img")({
-  width: "3.125rem",
-  height: "3.125rem",
+export const UserImage = styled("img")({
+  width: 60,
+  height: 60,
+  marginLeft: 20,
   borderRadius: "100%",
-  border: "2px solid #C71D1D",
+  border: "5px solid #C71D1D",
+  "&:hover": {
+    transition: "all 0.5s",
+    border: "0.1px solid #911515",
+  },
+});
+export const AmountItems = styled(Box)({
+  background: "#89D963",
+  borderRadius: "100%",
+  width: 15,
+  height: 15,
+  fontSize: "0.65em",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative",
+  bottom: "-5px",
+
+});
+export const AmountTotal = styled(Box)({
+  fontSize: "0.65em",
 });

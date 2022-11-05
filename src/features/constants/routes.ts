@@ -1,5 +1,5 @@
 export enum PagesRoutes {
-  home = "/",
-  shopping = "/shopping",
-  shoppingCart = "/shopping-cart",
+  products = "/",
+  ProductInfo = "/product/:id",
+  cart = "/cart",
 }
