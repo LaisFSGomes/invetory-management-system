@@ -14,8 +14,8 @@ import { Logo } from "components";
 import { CartContext } from "contexts";
 
 export const Header: React.FC = () => {
-  const { getItemsQuantity, getTotal } = React.useContext(CartContext);
-  const itemsQuantity = getItemsQuantity();
+  const { getAmountItems, getTotal } = React.useContext(CartContext);
+  const itemsQuantity = getAmountItems();
   const formatToDollar = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",

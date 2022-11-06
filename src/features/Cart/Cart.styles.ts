@@ -66,6 +66,29 @@ export const BuyButton = styled("button")({
   position: "absolute",
   bottom: 0,
 });
+export const DeleteCartButton = styled("button")({
+  display: "flex",
+  alignSelf: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  // marginRight: "4em",
+  background: "#C71D1D",
+  flexGrow: 0,
+  height: "30px",
+  border: "none",
+  borderRadius: "5px",
+  color: "#FFFFFF",
+  fontFamily: "Inter",
+  fontWeight: 600,
+  fontSize: "16px",
+  padding: "1em",
+  "&:hover": {
+    transition: "all 0.5s",
+    color: "#F0F0F0",
+    background: "#911515",
+    cursor: "pointer",
+  },
+});
 export const Button = styled("button")({
   alignSelf: "center",
   display: "flex",

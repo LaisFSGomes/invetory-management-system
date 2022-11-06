@@ -33,14 +33,14 @@ export const CartProductItem: React.FC<CartProductProps> = ({
   count,
 }) => {
   const navigate = useNavigate();
-  const { incrementCountCart, decrementCountCart, removeFromCart } =
+  const { incrementCart, decrementCart, removeFromCart } =
     React.useContext(CartContext);
 
   const onArrowUpButtonClick = () => {
-    incrementCountCart(id);
+    incrementCart(id);
   };
   const onArrowDownButtonClick = () => {
-    decrementCountCart(id);
+    decrementCart(id);
   };
   const onDeleteButtonClick = () =>{
     removeFromCart(id);

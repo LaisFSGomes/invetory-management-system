@@ -21,21 +21,22 @@ export interface ProductInfo {
 interface CartProviderProps {
   children: React.ReactNode;
 };
-interface CartContextData {
+interface CartContextProps {
   products: ProductInfo[];
   cart: CartInfo[];
   setProducts: React.Dispatch<React.SetStateAction<ProductInfo[]>>;
   getProduct: (id: number) => ProductInfo | undefined;
   addToCart: (product: ProductInfo) => void;
   removeFromCart: (id: number) => void;
-  incrementCountCart: (id: number) => void;
-  decrementCountCart: (id: number) => void;
-  getItemsQuantity: () => number;
+  removeAllCart: () => void;
+  incrementCart: (id: number) => void;
+  decrementCart: (id: number) => void;
+  getAmountItems: () => number;
   getTotal: () => number;
 };
 
-export const CartContext = React.createContext<CartContextData>(
-  {} as CartContextData,
+export const CartContext = React.createContext<CartContextProps>(
+  {} as CartContextProps,
 );
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
@@ -64,11 +65,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const cartList = cart.filter((product) => product.id !== id);
     setCart(cartList);
   };
-  const getItemsQuantity = () =>
+  const removeAllCart = () => {
+    setCart([]);
+  };
+  const getAmountItems = () =>
     cart.reduce((total, product) => total + product.count, 0);
   const getTotal = () =>
     cart.reduce((total, product) => total + product.count * product.price, 0);
-  const incrementCountCart = (id: number) => {
+  const incrementCart = (id: number) => {
     const cartList = cart.map(product => {
       if (product.id === id) product.count += 1;
 
@@ -76,7 +80,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
     setCart(cartList);
   };
-  const decrementCountCart = (id: number) => {
+  const decrementCart = (id: number) => {
     const cartList = cart.map(product => {
       if (product.id === id && product.count > 1) product.count -= 1;
 
@@ -94,9 +98,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         getProduct,
         addToCart,
         removeFromCart,
-        incrementCountCart,
-        decrementCountCart,
-        getItemsQuantity,
+        removeAllCart,
+        incrementCart,
+        decrementCart,
+        getAmountItems,
         getTotal,
       }}
     >
