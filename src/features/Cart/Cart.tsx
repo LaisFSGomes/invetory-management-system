@@ -46,7 +46,10 @@ export const Cart: React.FC = () => {
             <Button>Continue to checkout</Button>
           </BuyCard>
           <CardProducts>
-          <DeleteCartButton onClick={onDeleteCartButton}>Remove all Cart</DeleteCartButton>
+          {
+            (getAmountItems() !== 0) &&
+            <DeleteCartButton onClick={onDeleteCartButton}>Remove all Cart</DeleteCartButton>
+          }
             {cart?.map(item => (
               <CartProductItem
                 key={item.id}
