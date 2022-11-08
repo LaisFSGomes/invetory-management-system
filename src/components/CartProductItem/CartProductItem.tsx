@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import {
   CardWrapper,
   Image,
@@ -23,7 +23,7 @@ export interface CartProductProps {
   image: string;
   price: number;
   count: number;
-};
+}
 
 export const CartProductItem: React.FC<CartProductProps> = ({
   id,
@@ -42,11 +42,11 @@ export const CartProductItem: React.FC<CartProductProps> = ({
   const onArrowDownButtonClick = () => {
     decrementCart(id);
   };
-  const onDeleteButtonClick = () =>{
+  const onDeleteButtonClick = () => {
     removeFromCart(id);
   };
   const onProductItemClick = () => {
-    navigate(`/products/${id}`);
+    navigate(`/product/${id}`);
   };
   const formatToDollar = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -58,29 +58,22 @@ export const CartProductItem: React.FC<CartProductProps> = ({
       <Product>
         <Image src={image} alt={title} onClick={onProductItemClick} />
         <Informs>
-          <Title onClick={onProductItemClick}>
-          {title}
-          </Title>
+          <Title onClick={onProductItemClick}>{title}</Title>
         </Informs>
       </Product>
       <SalesInfo>
         <UpAndDown>
-          <Button onClick={onArrowUpButtonClick}>
-            <ArrowBackIosNewRoundedIcon />
-          </Button>
-          <Units>
-            {count === 1? `${count} Unit` : `${count} Units`}
-          </Units>
           <Button onClick={onArrowDownButtonClick}>
-            {
-              count !== 1 && 
-              <ArrowForwardIosRoundedIcon />
-            }
+            {count !== 1 && <ArrowBackIosNewRoundedIcon />}
+          </Button>
+          <Units>{count === 1 ? `${count} Unit` : `${count} Units`}</Units>
+          <Button onClick={onArrowUpButtonClick}>
+            <ArrowForwardIosRoundedIcon />
           </Button>
         </UpAndDown>
-        <Price> { formatToDollar.format(count * price) } </Price>
+        <Price> {formatToDollar.format(count * price)} </Price>
         <Button onClick={onDeleteButtonClick}>
-          <RemoveCircleOutlineIcon/>
+          <RemoveCircleOutlineIcon />
         </Button>
       </SalesInfo>
     </CardWrapper>
