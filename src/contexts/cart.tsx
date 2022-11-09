@@ -1,3 +1,4 @@
+import { count } from "console";
 import React from "react";
 
 export interface CartInfo {
@@ -6,7 +7,7 @@ export interface CartInfo {
   image: string;
   price: number;
   count: number;
-};
+}
 export interface ProductInfo {
   id: number;
   title: string;
@@ -17,10 +18,10 @@ export interface ProductInfo {
     count: number;
     rate: number;
   };
-};
+}
 interface CartProviderProps {
   children: React.ReactNode;
-};
+}
 interface CartContextProps {
   products: ProductInfo[];
   cart: CartInfo[];
@@ -33,7 +34,7 @@ interface CartContextProps {
   decrementCart: (id: number) => void;
   getAmountItems: () => number;
   getTotal: () => number;
-};
+}
 
 export const CartContext = React.createContext<CartContextProps>(
   {} as CartContextProps,
@@ -48,21 +49,21 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const addToCart = (product: ProductInfo) => {
     const cartList = [...cart];
     const insideCart = cartList.some(item => item.id === product.id);
-    if (!insideCart){
-      cartList.push({
-        id: product.id,
-        image: product.image,
-        title: product.title,
-        price: product.price,
-        count: 1,
-      });
-      setCart(cartList);
+    if (insideCart){
+      incrementCart(product.id);
     } else {
-      return;
+      cartList.push({
+      id: product.id,
+      image: product.image,
+      title: product.title,
+      price: product.price,
+      count: 1,
+    });
+    setCart(cartList);
     }
   };
   const removeFromCart = (id: number) => {
-    const cartList = cart.filter((product) => product.id !== id);
+    const cartList = cart.filter(product => product.id !== id);
     setCart(cartList);
   };
   const removeAllCart = () => {
@@ -88,7 +89,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
     setCart(cartList);
   };
-  
+
   return (
     <CartContext.Provider
       value={{

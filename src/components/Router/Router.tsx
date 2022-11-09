@@ -5,7 +5,6 @@ import { ProductInfo } from "features/ProductInfo";
 import { Home } from "features/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
 export const Router: React.FC = () => (
   <BrowserRouter>
     <Routes>

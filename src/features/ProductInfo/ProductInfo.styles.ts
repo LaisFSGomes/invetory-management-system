@@ -18,7 +18,7 @@ export const CardContainer = styled(Box)({
     transition: "all 0.5s",
     boxShadow: "4px 4px 4px #E3E3E3",
   },
-  "@media (min-width: 0px) and (max-width: 480px)":{
+  "@media (min-width: 0px) and (max-width: 480px)": {
     flexDirection: "column",
     margin: "1%",
   },
@@ -40,22 +40,22 @@ export const Image = styled("img")({
   width: "150px",
   borderRadius: 5,
   alignSelf: "flex-start",
-    "@media (min-width: 0px) and (max-width: 480px)":{
-      "&": {
-        margin: "0px auto",
-      },
+  "@media (min-width: 0px) and (max-width: 480px)": {
+    "&": {
+      margin: "0px auto",
     },
-    "@media (min-width: 481px) and (max-width: 768px)": {
-      "&": {
-        margin: "0px auto",
-      },
+  },
+  "@media (min-width: 481px) and (max-width: 768px)": {
+    "&": {
+      margin: "0px auto",
     },
-    "@media (min-width: 769px) and (max-width: 1024px)": {
-      "&": {
-        margin: "0px auto",
-      },
+  },
+  "@media (min-width: 769px) and (max-width: 1024px)": {
+    "&": {
+      margin: "0px auto",
     },
-  });
+  },
+});
 
 export const DescriptionWrapper = styled("div")({
   width: "40vw",
@@ -85,7 +85,6 @@ export const Description = styled(Typography)({
   textAlign: "justify",
   textIndent: 50,
 });
-
 
 export const Price = styled(Typography)({
   fontSize: "2em",

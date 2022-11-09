@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import {  Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export const CartWrapper = styled(Box)({
   width: "100%",
@@ -15,7 +15,7 @@ export const Title = styled(Typography)({
   fontSize: "1.5em",
   color: "#000000",
   alignSelf: "flex-start",
-  padding: "2rem"
+  padding: "2rem",
 });
 export const Container = styled(Box)({
   display: "flex",
@@ -49,7 +49,7 @@ export const BuyCard = styled(Box)({
 });
 export const BuyItem = styled(Box)({
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 });
 export const BuyText = styled(Typography)({
   fontSize: "1.3em",

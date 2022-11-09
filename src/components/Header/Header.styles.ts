@@ -32,7 +32,7 @@ export const NavItem = styled(Link)({
   "&:hover": {
     color: "#C71D1D",
   },
-  "@media (min-width: 0px) and (max-width: 480px)":{
+  "@media (min-width: 0px) and (max-width: 480px)": {
     display: "none",
   },
 });
@@ -77,7 +77,6 @@ export const AmountItems = styled(Box)({
   alignItems: "center",
   position: "relative",
   bottom: "-5px",
-
 });
 export const AmountTotal = styled(Box)({
   fontSize: "0.65em",

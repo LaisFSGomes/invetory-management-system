@@ -14,6 +14,8 @@ import {
   InfoWrapper,
   CardContainer,
 } from "./ProductInfo.styles";
+import { TextWithLimite } from "components/TextWithLimite";
+import { ValueDollar } from "components/ValueDollar";
 
 export interface ProductInfoProps {
   id: number;
@@ -24,8 +26,8 @@ export interface ProductInfoProps {
   rating?: {
     count: number;
     rate: number;
-  }
-};
+  };
+}
 
 export const ProductInfo: React.FC = () => {
   const [product, setProduct] = React.useState<ProductInfoProps | undefined>(
@@ -39,10 +41,6 @@ export const ProductInfo: React.FC = () => {
     if (product) addToCart(product);
     navigate(PagesRoutes.cart);
   };
-  const formatToDollar = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
 
   React.useEffect(() => {
     const productID = Number(location.pathname.split("/").reverse()[0]);
@@ -54,20 +52,25 @@ export const ProductInfo: React.FC = () => {
   return (
     <React.Fragment>
       <Header />
-      <ProductDescWrapper>        
+      <ProductDescWrapper>
         <CardContainer>
           <Image src={product?.image} alt={product?.title} />
           <InfoWrapper>
-            <Title> {product?.title} </Title>
+            <Title>
+              <TextWithLimite title={product?.title} charactersLimit={1000} />
+            </Title>
             <Rating>Rating: {product?.rating?.rate}</Rating>
             <Price>
-              {formatToDollar.format(product?.price || 0)}
+              <ValueDollar price={product?.price || 0} />
             </Price>
-            <Description>{product?.description}</Description>
+            <Description>
+              <TextWithLimite
+                title={product?.description}
+                charactersLimit="unlimited"
+              />
+            </Description>
           </InfoWrapper>
-          <Button onClick={onAddToCartButtonClick}>
-            Add to cart
-          </Button>
+          <Button onClick={onAddToCartButtonClick}>Add to cart</Button>
         </CardContainer>
       </ProductDescWrapper>
       <Footer />

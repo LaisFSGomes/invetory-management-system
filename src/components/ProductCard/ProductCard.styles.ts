@@ -15,7 +15,7 @@ export const CardWrapper = styled(Box)({
     "& h1": {
       color: "#C71D1D",
     },
-    "& p + p":{
+    "& p + p": {
       fontWeight: 550,
     },
   },

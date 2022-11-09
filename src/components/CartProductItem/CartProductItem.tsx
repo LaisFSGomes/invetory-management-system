@@ -16,6 +16,8 @@ import {
   Informs,
 } from "./CartProductItem.styles";
 import { CartContext } from "contexts";
+import { TextWithLimite } from "components/TextWithLimite";
+import { ValueDollar } from "components/ValueDollar";
 
 export interface CartProductProps {
   id: number;
@@ -36,29 +38,19 @@ export const CartProductItem: React.FC<CartProductProps> = ({
   const { incrementCart, decrementCart, removeFromCart } =
     React.useContext(CartContext);
 
-  const onArrowUpButtonClick = () => {
-    incrementCart(id);
-  };
-  const onArrowDownButtonClick = () => {
-    decrementCart(id);
-  };
-  const onDeleteButtonClick = () => {
-    removeFromCart(id);
-  };
-  const onProductItemClick = () => {
-    navigate(`/product/${id}`);
-  };
-  const formatToDollar = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+  const onArrowUpButtonClick = () => incrementCart(id);
+  const onArrowDownButtonClick = () => decrementCart(id);
+  const onDeleteButtonClick = () => removeFromCart(id);
+  const onProductItemClick = () => navigate(`/product/${id}`);
 
   return (
     <CardWrapper>
       <Product>
         <Image src={image} alt={title} onClick={onProductItemClick} />
         <Informs>
-          <Title onClick={onProductItemClick}>{title}</Title>
+          <Title onClick={onProductItemClick}>
+            <TextWithLimite title={title} charactersLimit={100} />
+          </Title>
         </Informs>
       </Product>
       <SalesInfo>
@@ -71,7 +63,9 @@ export const CartProductItem: React.FC<CartProductProps> = ({
             <ArrowForwardIosRoundedIcon />
           </Button>
         </UpAndDown>
-        <Price> {formatToDollar.format(count * price)} </Price>
+        <Price>
+          <ValueDollar price={count * price} />
+        </Price>
         <Button onClick={onDeleteButtonClick}>
           <RemoveCircleOutlineIcon />
         </Button>

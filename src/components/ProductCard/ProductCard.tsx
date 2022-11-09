@@ -9,6 +9,8 @@ import {
   Button,
 } from "./ProductCard.styles";
 import { CartContext } from "contexts";
+import { TextWithLimite } from "components/TextWithLimite";
+import { ValueDollar } from "components/ValueDollar";
 
 interface ProductCardProps {
   id: number;
@@ -37,23 +39,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       image,
     });
   };
-  const formatToDollar = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
   return (
     <CardWrapper>
-       <Image src={image} alt={title} onClick={onCardClick} />  
-        <ProductTitle variant="h1" onClick={onCardClick}>
-          {title.length > 60? title.slice(0, 60) + "..." : title}
-        </ProductTitle> 
-        <ProductDescription>
-          {description.length > 100? description.slice(0, 100) + "..." : description}
-        </ProductDescription>   
-        <ProductPrice>{formatToDollar.format(price)}</ProductPrice>
-        <Button onClick={onAddToCartButtonClick}>
-          Add to cart
-        </Button>
+      <Image src={image} alt={title} onClick={onCardClick} />
+      <ProductTitle variant="h1" onClick={onCardClick}>
+        <TextWithLimite title={title} charactersLimit={60} />
+      </ProductTitle>
+      <ProductDescription>
+        <TextWithLimite title={description} charactersLimit={100} />
+      </ProductDescription>
+      <ProductPrice>
+        <ValueDollar price={price} />
+      </ProductPrice>
+      <Button onClick={onAddToCartButtonClick}>Add to cart</Button>
     </CardWrapper>
   );
 };

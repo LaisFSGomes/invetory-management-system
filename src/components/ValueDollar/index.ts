@@ -1,0 +1,1 @@
+export { ValueDollar } from "./ValueDollar";

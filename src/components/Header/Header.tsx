@@ -9,17 +9,14 @@ import {
   UserImage,
 } from "./Header.styles";
 import { PagesRoutes } from "features/constants/routes";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Logo } from "components";
 import { CartContext } from "contexts";
+import { ValueDollar } from "components/ValueDollar";
 
 export const Header: React.FC = () => {
   const { getAmountItems, getTotal } = React.useContext(CartContext);
   const itemsQuantity = getAmountItems();
-  const formatToDollar = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
   return (
     <HeaderWrapper>
       <Logo />
@@ -31,7 +28,9 @@ export const Header: React.FC = () => {
           </AmountItems>
           <ShoppingCartIcon />
           <AmountTotal>
-          <span>{formatToDollar.format(getTotal())}</span>
+            <span>
+              <ValueDollar price={getTotal()} />
+            </span>
           </AmountTotal>
         </NavItemCart>
         <UserImage

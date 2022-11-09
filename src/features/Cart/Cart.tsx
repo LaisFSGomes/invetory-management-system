@@ -1,5 +1,6 @@
 import { Footer, Header } from "components";
 import { CartProductItem } from "components/CartProductItem";
+import { ValueDollar } from "components/ValueDollar";
 import { CartContext } from "contexts";
 import React from "react";
 import {
@@ -16,11 +17,8 @@ import {
 } from "./Cart.styles";
 
 export const Cart: React.FC = () => {
-  const { cart, getTotal, getAmountItems, removeAllCart } = React.useContext(CartContext);
-  const formatToDollar = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+  const { cart, getTotal, getAmountItems, removeAllCart } =
+    React.useContext(CartContext);
   const onDeleteCartButton = () => {
     removeAllCart();
   };
@@ -41,15 +39,18 @@ export const Cart: React.FC = () => {
             </BuyItem>
             <BuyItem>
               <BuyText>Estimated total: </BuyText>
-              <BuyValue>{formatToDollar.format(getTotal())}</BuyValue>
+              <BuyValue>
+                <ValueDollar price={getTotal()} />
+              </BuyValue>
             </BuyItem>
             <Button>Continue to checkout</Button>
           </BuyCard>
           <CardProducts>
-          {
-            (getAmountItems() !== 0) &&
-            <DeleteCartButton onClick={onDeleteCartButton}>Remove all Cart</DeleteCartButton>
-          }
+            {getAmountItems() !== 0 && (
+              <DeleteCartButton onClick={onDeleteCartButton}>
+                Remove all Cart
+              </DeleteCartButton>
+            )}
             {cart?.map(item => (
               <CartProductItem
                 key={item.id}
