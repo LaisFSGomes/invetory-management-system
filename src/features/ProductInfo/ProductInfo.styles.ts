@@ -5,7 +5,6 @@ export const ProductDescWrapper = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   padding: "6em 0em",
-  // margin: "3em 0em",
 });
 export const CardContainer = styled(Box)({
   display: "flex",
@@ -20,16 +19,9 @@ export const CardContainer = styled(Box)({
     transition: "all 0.5s",
     boxShadow: "4px 4px 4px #E3E3E3",
   },
-  "@media (min-width: 0px) and (max-width: 480px)": {
+  "@media (min-width: 0px) and (max-width: 1115px)": {
     flexDirection: "column",
     margin: "1%",
-  },
-  "@media (min-width: 481px) and (max-width: 768px)": {
-    flexDirection: "column",
-    margin: "1%",
-  },
-  "@media (min-width: 769px) and (max-width: 1024px)": {
-    flexDirection: "row",
   },
 });
 export const InfoWrapper = styled(Box)({
@@ -42,7 +34,8 @@ export const Image = styled("img")({
   width: "150px",
   borderRadius: 5,
   alignSelf: "flex-start",
-  "@media (min-width: 0px) and (max-width: 480px)": {
+  "@media (min-width: 0px) and (max-width: 1115px)": {
+    alignSelf: "center",
     "&": {
       margin: "0px auto",
     },
