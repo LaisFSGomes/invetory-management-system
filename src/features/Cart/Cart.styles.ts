@@ -71,7 +71,6 @@ export const DeleteCartButton = styled("button")({
   alignSelf: "center",
   justifyContent: "center",
   alignItems: "center",
-  // marginRight: "4em",
   background: "#C71D1D",
   flexGrow: 0,
   height: "30px",
