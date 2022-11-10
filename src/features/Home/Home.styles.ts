@@ -6,7 +6,7 @@ export const ProductsWrapper = styled(Box)({
   gridTemplateColumns: "repeat(4, 1fr)",
   gap: "2em",
   padding: "3em 0em",
-  margin: "0em 3em",
+  margin: "3em 3em",
   "@media (min-width: 0px) and (max-width: 480px)": {
     gridTemplateColumns: "repeat(1, 1fr)",
   },

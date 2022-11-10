@@ -1,6 +1,4 @@
-import { Footer, Header, ProductCard } from "components";
-import { AppBarResponsive } from "components/AppBar";
-// import { AppBarResponsive } from "components/AppBarResponsive";
+import { Footer, ProductCard,  AppBarResponsive } from "components";
 import { api } from "config/api";
 import { CartContext } from "contexts";
 import React from "react";
@@ -19,7 +17,6 @@ export const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      {/* <Header /> */}
       <AppBarResponsive />
       <ProductsWrapper>
         {products?.map(product => (

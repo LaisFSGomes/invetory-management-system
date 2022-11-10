@@ -4,6 +4,8 @@ export const ProductDescWrapper = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  padding: "6em 0em",
+  // margin: "3em 0em",
 });
 export const CardContainer = styled(Box)({
   display: "flex",

@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 
 export const ContainerLarge = styled(Box)({
-  display: "flex",
-  justifyContent: "space-between",
+  display: "grid",
+  gridTemplateColumns: "1fr 100fr 1fr",
   alignItems: "center",
   gap: 20,
   flexGrow: 1,
+  "& > :nth-child(1)":{
+  },
   "@media (min-width: 0px) and (max-width: 480px)": {
     display: "none",
   },
 });
 export const Navbar = styled("nav")({
   display: "flex",
-  justifyContent: "center",
+  justifyContent: "flex-end",
   alignItems: "center",
   gap: 20,
 });
@@ -30,7 +32,6 @@ export const NavItem = styled(Link)({
     color: "#C71D1D",
   },
 });
-
 export const NavItemCart = styled(Link)({
   display: "flex",
   flexDirection: "column",
@@ -69,25 +70,19 @@ export const AmountTotal = styled(Box)({
 export const ContainerMobile = styled(Box)({
   display: "none",
   "@media (min-width: 0px) and (max-width: 480px)": {
-    // flexGrow: 1,
+    flexGrow: 1,
     display: "flex",
     justifyContent: "space-between",
-
   },
 });
 export const ButtonBarr = styled(IconButton)({
   "& svg": {
     color: "#C71D1D",
   },
-});
-export const LogoContainerMobile = styled(Box)({
-  display: "none",
-  "@media (min-width: 0px) and (max-width: 480px)": {
-    display: "flex",
+  "&:hover": {
+    background: "#FFFFFF",
   },
 });
-
-
 export const ItemsContainer = styled(Box)({
   display: "flex",
   flexGrow: 1,
@@ -95,8 +90,6 @@ export const ItemsContainer = styled(Box)({
     display: "none",
   },
 });
-
-;
 export const MenuMobile = styled(Menu)({
   display: "none",
   "@media (min-width: 0px) and (max-width: 480px)": {
@@ -105,6 +98,7 @@ export const MenuMobile = styled(Menu)({
   },
 });
 export const UserImage = styled("img")({
+  display: "flex",
   width: 60,
   height: 60,
   marginLeft: 20,
@@ -115,7 +109,6 @@ export const UserImage = styled("img")({
     border: "0.1px solid #911515",
   },
 });
-
 export const AppBarWrapper = styled(AppBar)({
   display: "flex",
   flexDirection: "row",

@@ -1,4 +1,4 @@
-import { Footer, Header } from "components";
+import { AppBarResponsive, Footer } from "components";
 import { CartProductItem } from "components/CartProductItem";
 import { ValueDollar } from "components/ValueDollar";
 import { CartContext } from "contexts";
@@ -24,7 +24,7 @@ export const Cart: React.FC = () => {
   };
   return (
     <React.Fragment>
-      <Header />
+      <AppBarResponsive />
       <CartWrapper>
         <Title>Cart ({getAmountItems()} items):</Title>
         <Container>

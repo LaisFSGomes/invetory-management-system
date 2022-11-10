@@ -1,6 +1,5 @@
 import React from "react";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +7,6 @@ import { Logo } from "components/Logo";
 import {
   ContainerLarge,
   ContainerMobile,
-  LogoContainerMobile,
   NavItem,
   NavItemCart,
   AmountTotal,
@@ -23,14 +21,13 @@ import { AmountItems } from "components/Header/Header.styles";
 import { ValueDollar } from "components/ValueDollar";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartContext } from "contexts";
-import { Link } from "react-router-dom";
 
 export const AppBarResponsive = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { getAmountItems, getTotal } = React.useContext(CartContext);
+  const itemsQuantity = getAmountItems();
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -38,15 +35,6 @@ export const AppBarResponsive = () => {
     setAnchorEl(null);
   };
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const { getAmountItems, getTotal } = React.useContext(CartContext);
-  const itemsQuantity = getAmountItems();
   return (
     <AppBarWrapper position="fixed">
       <Container>
@@ -67,12 +55,13 @@ export const AppBarResponsive = () => {
                 </AmountTotal>
               </NavItemCart>
             </Navbar>
+            <UserImage
+              src="https://avatars.githubusercontent.com/u/50854183?v=4"
+              alt="user image"
+            />
           </ContainerLarge>
-
           <ContainerMobile>
-            <ButtonBarr 
-              onClick={handleClick}
-            >
+            <ButtonBarr onClick={handleClick}>
               <MenuIcon />
             </ButtonBarr>
             <MenuMobile
@@ -81,25 +70,22 @@ export const AppBarResponsive = () => {
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                'aria-labelledby': 'basic-button',
+                "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to={PagesRoutes.products}>Home</Link>
+              <MenuItem>
+                <NavItem to={PagesRoutes.products}>Home</NavItem>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link to={PagesRoutes.cart}>Carrinho</Link>
+              <MenuItem>
+                <NavItem to={PagesRoutes.cart}>Carrinho</NavItem>
               </MenuItem>
             </MenuMobile>
-          </ContainerMobile>
-          <LogoContainerMobile>
             <Logo />
-          </LogoContainerMobile>
-
-          <UserImage
-            src="https://avatars.githubusercontent.com/u/50854183?v=4"
-            alt="user image"
-          />
+            <UserImage
+              src="https://avatars.githubusercontent.com/u/50854183?v=4"
+              alt="user image"
+            />
+          </ContainerMobile>
         </Toolbar>
       </Container>
     </AppBarWrapper>

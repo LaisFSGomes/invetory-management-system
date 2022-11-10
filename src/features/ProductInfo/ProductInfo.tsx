@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Header } from "components";
+import { AppBarResponsive, Footer } from "components";
 import { CartContext } from "contexts";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PagesRoutes } from "features/constants/routes";
@@ -51,7 +51,7 @@ export const ProductInfo: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Header />
+      <AppBarResponsive />
       <ProductDescWrapper>
         <CardContainer>
           <Image src={product?.image} alt={product?.title} />
