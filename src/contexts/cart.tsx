@@ -1,14 +1,14 @@
 import { count } from "console";
 import React from "react";
 
-export interface CartInfo {
+interface CartInfo {
   id: number;
   title: string;
   image: string;
   price: number;
   count: number;
 }
-export interface ProductInfo {
+interface ProductInfo {
   id: number;
   title: string;
   image: string;
@@ -35,7 +35,18 @@ interface CartContextProps {
   getAmountItems: () => number;
   getTotal: () => number;
 }
-
+interface userLogin {
+  email: string;
+  senha: string;
+};
+interface user {
+  nome: string;
+  email: string;
+  senha: string;
+};
+interface users {
+  allUsers: user[];
+}
 export const CartContext = React.createContext<CartContextProps>(
   {} as CartContextProps,
 );
@@ -43,6 +54,7 @@ export const CartContext = React.createContext<CartContextProps>(
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = React.useState<CartInfo[]>([]);
   const [products, setProducts] = React.useState<ProductInfo[]>([]);
+
 
   const getProduct = (id: number) =>
     products.find(product => product.id === id);
