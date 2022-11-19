@@ -1,8 +1,9 @@
 import { AppBarResponsive, Footer } from "components";
 import { Input } from "components/Input";
 import React from "react";
-import { LoginWrapper, LoginContainer, Button } from "./Login.styles";
-import { InputLabel } from '@mui/material';
+import { LoginWrapper, LoginContainer, Button, LinkRegister } from "./Login.styles";
+import { InputLabel, Typography } from '@mui/material';
+import { PagesRoutes } from "features/constants";
 
 
 export const Login: React.FC = () => {
@@ -36,6 +37,9 @@ export const Login: React.FC = () => {
         />
          <Button>Login</Button>
       </LoginContainer>
+      <Typography>
+        Are you new here? <LinkRegister to = {PagesRoutes.register}>Create an account</LinkRegister>
+      </Typography>
     </LoginWrapper>
     <Footer />
    </React.Fragment>

@@ -1,7 +1,9 @@
+import { Typography } from "@mui/material";
 import { AppBarResponsive, Footer } from "components";
 import { Input } from "components/Input";
+import { PagesRoutes } from "features/constants";
 import React from "react";
-import { Button, LoginContainer, LoginWrapper } from "./Register.styles";
+import { Button, LinkRegister, LoginContainer, LoginWrapper } from "./Register.styles";
 
 export const Register: React.FC = () => {
   const [inputEmailRegister, setInputEmailRegister] = React.useState("");
@@ -55,6 +57,9 @@ export const Register: React.FC = () => {
         />
          <Button>Register</Button>
       </LoginContainer>
+      <Typography>
+        Already have an account? <LinkRegister to = {PagesRoutes.login}>Login</LinkRegister>
+      </Typography>
     </LoginWrapper>
     <Footer />
    </React.Fragment>

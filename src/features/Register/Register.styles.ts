@@ -1,9 +1,12 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import fireLogo from "assets/img/fireLogo.svg";
+import { Link } from "react-router-dom";
 
 export const LoginWrapper = styled(Box)({
   display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   margin: "auto",
 });
 
@@ -48,4 +51,7 @@ export const Button = styled("button")({
     background: "#82CF5D",
     cursor: "pointer",
   },
+});
+export const LinkRegister = styled(Link)({
+  color: "#C71D1D",
 });
