@@ -15,16 +15,23 @@ export const LoginContainer = styled(Box)({
   alignItems: "center",
   flexDirection: "column",
   width: "100%",
+  minWidth: "60vw",
   background: "#FFFFFF",
   borderRadius: "5px",
-  padding: "3em 6em",
-  gap: "1em",
+  marginTop: "4em",
+  padding: "2em 6em",
+  gap: "1.5em",
   backgroundImage: `url(${fireLogo})`,
   "& > svg": {
     color: "#C71D1D",
   },
+  "@media (min-width: 900px)": {
+    minWidth: "70vh",
+  },
   "@media (min-width: 0px) and (max-width: 380px)": {
-    padding: "3em 1em",
+    marginTop: "70px",
+    minWidth: "70vw",
+    padding: "2em 1em",
     width: "90vw",
   },
 });

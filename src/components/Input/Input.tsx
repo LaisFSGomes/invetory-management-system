@@ -1,14 +1,16 @@
-import { InputLabel } from "@mui/material";
+import { FormHelperText, InputLabel } from "@mui/material";
 import React from "react";
 import { Input as InputForm} from '@mui/material';
-import { Form } from "./Input.styles";
+import { Form, HelpText } from "./Input.styles";
 interface InputProps {
   label?: string;
   id?: string;
-  type: string;
+  type: "email" | "text" | "password";
   placeholder?: string;
   onChange:  (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  helpText?: string;
+  colorHelp?: "red" | "green";
 }
 export const Input: React.FC<InputProps> = ({
   label,
@@ -17,6 +19,8 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   onChange,
   value,
+  helpText,
+  colorHelp,
 }) => {
   return(
     <Form >
@@ -31,6 +35,7 @@ export const Input: React.FC<InputProps> = ({
         value={value}
         disableUnderline= {true}
       />
+      <HelpText className= {colorHelp} > {helpText} </HelpText>
     </Form>
   );
 };

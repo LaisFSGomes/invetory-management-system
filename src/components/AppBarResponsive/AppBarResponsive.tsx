@@ -43,6 +43,7 @@ export const AppBarResponsive = () => {
             <Logo />
             <Navbar>
               <NavItem to={PagesRoutes.products}>Home</NavItem>
+              <NavItem to={PagesRoutes.login}>Login</NavItem>
               <NavItemCart to={PagesRoutes.cart}>
                 <AmountItems>
                   <span>{itemsQuantity}</span>
