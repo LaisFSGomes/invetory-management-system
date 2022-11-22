@@ -1,8 +1,10 @@
 const numbers = /(?=.*[\d])/g;
 const name = /(.[a-z]*)/gi;
-const special = /?=.*\W/g;
+const special = /(?=.*\W)/g;
 const upperCase = /(?=.*[A-Z])/g;
 const lowerCase = /(?=.*[a-z])/g;
+const sequenceNumber = /(?=[0-9]{2,})/g;
+const sequenceName = /(?= [a-z]{2,})/gi;
 
 export const validateNumbers = (text: string) => numbers.test(text);
 
@@ -14,6 +16,10 @@ export const validateLowerCase = (text: string) => lowerCase.test(text);
 
 export const validateUpperCase = (text: string) => upperCase.test(text);
 
+export const validadeSequence = (text: string) => {
+  return (!(sequenceNumber.test(text)) && !(sequenceName.test(text)));
+};
+
 export const validateLength = (text: string) => (text.length >= 8 ) && (text.length <= 18);
 
 export const validateLowerUpperNumber = (value: string) =>
@@ -21,5 +27,5 @@ export const validateLowerUpperNumber = (value: string) =>
 
 export const validatePassword = (password: string) => {
   if (password === "") return false;
-  return validateLength(password) && validateLowerUpperNumber(password) && validateSpecial(password);
+  return validateLength(password) && validateLowerUpperNumber(password) && validateSpecial(password) && validadeSequence(password);
 };

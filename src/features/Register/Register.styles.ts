@@ -63,13 +63,16 @@ export const LinkRegister = styled(Link)({
   color: "#C71D1D",
 });
 export const HelpPasswordContainer = styled(Box)({
-  background: "#FFF",
+  background: "#F1F1F1",
   borderRadius: "10px",
-  marginTop: "10px",
   "& p": {
+    color: "#C71D1D",
     fontSize: "0.7em",
+    fontWeight: 600,
   },
   "& span": {
+    color: "#C71D1D",
     fontSize: "0.7em",
+    fontWeight: 500,
   },
 });
