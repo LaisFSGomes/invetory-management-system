@@ -1,9 +1,10 @@
-import { Typography } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
 import { AppBarResponsive, Footer } from "components";
 import { Input } from "components/Input";
 import { PagesRoutes } from "features/constants";
 import React from "react";
-import { Button, LinkRegister, LoginContainer, LoginWrapper } from "./Register.styles";
+import { Button, HelpPasswordContainer, LinkRegister, LoginContainer, LoginWrapper } from "./Register.styles";
+import {validateLength, validatePassword } from "utils/ValidadePassword";
 
 export const Register: React.FC = () => {
   const [inputEmailRegister, setInputEmailRegister] = React.useState("");
@@ -61,9 +62,26 @@ export const Register: React.FC = () => {
           value={inputConfirmPasswordRegister}
           id="password"
           type="password"
-          helpText= {passwordsMath ? "passwords math" : "passwords don't math"}
+          helpText= {inputConfirmPasswordRegister===""? "" : passwordsMath? "passwords match" : "passwords don't match"}
           colorHelp= {passwordsMath ? "green" : "red"}
         />
+        <HelpPasswordContainer>
+          <Typography>Regra da Senha</Typography>
+          <List>
+            <ListItem disablePadding>
+              <ListItemText primary="at least one special character" />
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText primary="between 8 and 18 characters" />
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText primary="contain uppercase, lowercase and numbers" />
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText primary="cannot have sequence of letters or numbers" />
+            </ListItem>
+          </List>
+        </HelpPasswordContainer>
          <Button>Register</Button>
       </LoginContainer>
       <Typography>

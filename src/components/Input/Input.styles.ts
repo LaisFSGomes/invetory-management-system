@@ -19,7 +19,7 @@ export const Form = styled(FormControl)({
       border: "0px",
       textAlign: "center",
     },
-  }
+  },
 });
 export const HelpText = styled(FormHelperText)({
   fontWeight: 600,

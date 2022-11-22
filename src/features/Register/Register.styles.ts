@@ -62,3 +62,14 @@ export const Button = styled("button")({
 export const LinkRegister = styled(Link)({
   color: "#C71D1D",
 });
+export const HelpPasswordContainer = styled(Box)({
+  background: "#FFF",
+  borderRadius: "10px",
+  marginTop: "10px",
+  "& p": {
+    fontSize: "0.7em",
+  },
+  "& span": {
+    fontSize: "0.7em",
+  },
+});
