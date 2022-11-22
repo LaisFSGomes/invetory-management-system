@@ -75,4 +75,10 @@ export const HelpPasswordContainer = styled(Box)({
     fontSize: "0.7em",
     fontWeight: 500,
   },
+  "& .right span": {
+    color: "#5D9D3E",
+  },
+  "& .wrong span": {
+    color: "#C71D1D",
+  },
 });

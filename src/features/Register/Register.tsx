@@ -1,7 +1,6 @@
 import {
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   Typography,
 } from "@mui/material";
@@ -16,7 +15,7 @@ import {
   LoginContainer,
   LoginWrapper,
 } from "./Register.styles";
-import { validatePassword } from "utils/ValidadePassword";
+import { validatePassword, validateEmail } from "utils/ValidadePassword";
 
 export const Register: React.FC = () => {
   const [inputEmailRegister, setInputEmailRegister] = React.useState("");
@@ -26,6 +25,7 @@ export const Register: React.FC = () => {
     React.useState("");
   const [passwordsMath, setPasswordsMath] = React.useState<boolean>();
   const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
+  const [emailValid, setEmailValid] = React.useState<boolean>(false);
 
   const onInputEmailRegisterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -52,7 +52,8 @@ export const Register: React.FC = () => {
   React.useEffect(() => {
     setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
     setPasswordValid(validatePassword(inputPasswordRegister));
-  }, [inputPasswordRegister, inputConfirmPasswordRegister]);
+    setEmailValid(validateEmail(inputEmailRegister));
+  }, [inputPasswordRegister, inputConfirmPasswordRegister, inputEmailRegister]);
 
   return (
     <React.Fragment>
@@ -65,6 +66,7 @@ export const Register: React.FC = () => {
             value={inputEmailRegister}
             id="email"
             type="email"
+            helpText={(emailValid || inputEmailRegister==="")? "" : "invalid email"}
           />
           <Input
             label="Name"
@@ -79,7 +81,8 @@ export const Register: React.FC = () => {
             value={inputPasswordRegister}
             id="password"
             type="password"
-            helpText={passwordValid ? "valid" : "no valid"}
+            helpText={(passwordValid && inputPasswordRegister !== "") ? "" : "invalid password"}
+            colorHelp="red"
           />
           <Input
             label="Confirm Password"
@@ -96,14 +99,14 @@ export const Register: React.FC = () => {
             }
             colorHelp={passwordsMath ? "green" : "red"}
           />
-          {!passwordValid && inputPasswordRegister != "" && (
+          {!passwordValid && inputPasswordRegister !== "" && (
             <HelpPasswordContainer>
               <Typography>Password's Rules</Typography>
               <List>
                 <ListItem disablePadding>
                   <ListItemText primary="at least one special character" />
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem disablePadding className="teste">
                   <ListItemText primary="between 8 and 18 characters" />
                 </ListItem>
                 <ListItem disablePadding>
