@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button as Btn } from "@mui/material";
 import { styled } from "@mui/system";
 import fireLogo from "assets/img/fireLogo.svg";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ export const LoginContainer = styled(Box)({
   },
 });
 
-export const Button = styled("button")({
+export const Button = styled(Btn)({
   alignSelf: "center",
   display: "flex",
   flexDirection: "row",

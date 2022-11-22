@@ -1,12 +1,15 @@
 import {
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
   Typography,
 } from "@mui/material";
 import { AppBarResponsive, Footer } from "components";
 import { Input } from "components/Input";
 import { PagesRoutes } from "features/constants";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import React from "react";
 import {
   Button,
@@ -15,7 +18,22 @@ import {
   LoginContainer,
   LoginWrapper,
 } from "./Register.styles";
-import { validatePassword, validateEmail } from "utils/ValidadePassword";
+import {
+  validatePassword,
+  validateEmail,
+  validateLength,
+  validateLowerCase,
+  validateUpperCase,
+  validateSpecial,
+  validateNumbers,
+  validadeSequence,
+} from "utils/ValidadePassword";
+
+interface user {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export const Register: React.FC = () => {
   const [inputEmailRegister, setInputEmailRegister] = React.useState("");
@@ -23,9 +41,15 @@ export const Register: React.FC = () => {
   const [inputPasswordRegister, setInputPasswordRegister] = React.useState("");
   const [inputConfirmPasswordRegister, setInputConfirmPasswordRegister] =
     React.useState("");
-  const [passwordsMath, setPasswordsMath] = React.useState<boolean>();
+  const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
   const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
   const [emailValid, setEmailValid] = React.useState<boolean>(false);
+  const [lengthIsValid, setLengthIsValid] = React.useState<boolean>(false);
+  const [specialCharIsValid, setSpecialCharIsValid] =
+    React.useState<boolean>(false);
+  const [lowerUpperNumberIsValid, setLowerUpperNumberIsValid] =
+    React.useState<boolean>(false);
+  const [sequenceIsValid, setSequenceIsValid] = React.useState<boolean>(false);
 
   const onInputEmailRegisterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -53,6 +77,14 @@ export const Register: React.FC = () => {
     setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
     setPasswordValid(validatePassword(inputPasswordRegister));
     setEmailValid(validateEmail(inputEmailRegister));
+    setLengthIsValid(validateLength(inputPasswordRegister));
+    setSpecialCharIsValid(validateSpecial(inputPasswordRegister));
+    setLowerUpperNumberIsValid(
+      validateLowerCase(inputPasswordRegister) &&
+        validateUpperCase(inputPasswordRegister) &&
+        validateNumbers(inputPasswordRegister),
+    );
+    setSequenceIsValid(validadeSequence(inputPasswordRegister));
   }, [inputPasswordRegister, inputConfirmPasswordRegister, inputEmailRegister]);
 
   return (
@@ -66,7 +98,9 @@ export const Register: React.FC = () => {
             value={inputEmailRegister}
             id="email"
             type="email"
-            helpText={(emailValid || inputEmailRegister==="")? "" : "invalid email"}
+            helpText={
+              emailValid || inputEmailRegister === "" ? "" : "invalid email"
+            }
           />
           <Input
             label="Name"
@@ -81,7 +115,11 @@ export const Register: React.FC = () => {
             value={inputPasswordRegister}
             id="password"
             type="password"
-            helpText={(passwordValid && inputPasswordRegister !== "") ? "" : "invalid password"}
+            helpText={
+              passwordValid || inputPasswordRegister === ""
+                ? ""
+                : "invalid password"
+            }
             colorHelp="red"
           />
           <Input
@@ -99,26 +137,70 @@ export const Register: React.FC = () => {
             }
             colorHelp={passwordsMath ? "green" : "red"}
           />
-          {!passwordValid && inputPasswordRegister !== "" && (
-            <HelpPasswordContainer>
-              <Typography>Password's Rules</Typography>
-              <List>
-                <ListItem disablePadding>
-                  <ListItemText primary="at least one special character" />
-                </ListItem>
-                <ListItem disablePadding className="teste">
-                  <ListItemText primary="between 8 and 18 characters" />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText primary="contain uppercase, lowercase and numbers" />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemText primary="cannot have sequence of letters or numbers" />
-                </ListItem>
-              </List>
-            </HelpPasswordContainer>
-          )}
-          <Button>Register</Button>
+
+          <HelpPasswordContainer>
+            <Typography>Password's Rules</Typography>
+            <List>
+              <ListItem
+                disablePadding
+                className={lengthIsValid ? "right" : "wrong"}
+              >
+                <ListItemIcon className={lengthIsValid ? "right" : "wrong"}>
+                  {lengthIsValid ? (
+                    <CheckCircleRoundedIcon />
+                  ) : (
+                    <CancelRoundedIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary="between 8 and 18 characters" />
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                className={specialCharIsValid ? "right" : "wrong"}
+              >
+                <ListItemIcon
+                  className={specialCharIsValid ? "right" : "wrong"}
+                >
+                  {specialCharIsValid ? (
+                    <CheckCircleRoundedIcon />
+                  ) : (
+                    <CancelRoundedIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary="at least one special character" />
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                className={ lowerUpperNumberIsValid ?  "right" : "wrong"}
+              >
+                <ListItemIcon className={lowerUpperNumberIsValid ? "right" : "wrong"}>
+                {lowerUpperNumberIsValid ? (
+                    <CheckCircleRoundedIcon />
+                  ) : (
+                    <CancelRoundedIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary="contain uppercase, lowercase and numbers" />
+              </ListItem>
+
+              <ListItem
+                disablePadding
+                className={ sequenceIsValid ?  "right" : "wrong" }>
+                <ListItemIcon className={sequenceIsValid ? "right" : "wrong"}>
+                {sequenceIsValid ? (
+                    <CheckCircleRoundedIcon />
+                  ) : (
+                    <CancelRoundedIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary="cannot have letters or numbers in sequence" />
+              </ListItem>
+            </List>
+          </HelpPasswordContainer>
+
+          <Button disabled={!(passwordValid && passwordsMath)}>Register</Button>
         </LoginContainer>
         <Typography>
           Already have an account?{" "}
