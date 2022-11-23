@@ -19,9 +19,8 @@ export const Login: React.FC = () => {
     setInputPassword(e.target.value);
   };
   const onLoginButtonClick = () => {
-    Login(inputEmail, inputPassword);
-    if(user){
-      alert("Welcome, "+ user.name);
+    if(Login(inputEmail, inputPassword)){
+      alert("Welcome "+ user.name);
       navigate(PagesRoutes.products);
     }
   };

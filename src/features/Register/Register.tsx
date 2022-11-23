@@ -56,9 +56,10 @@ export const Register: React.FC = () => {
 
   const { RegisterUser, users } = React.useContext(UserContext);
   const onRegisterButtonClick = () => {
-    RegisterUser(inputNameRegister, inputEmailRegister, inputPasswordRegister);
-    alert("Usuário Cadastrado");
-    navigate(PagesRoutes.login);
+    if(RegisterUser(inputNameRegister, inputEmailRegister, inputPasswordRegister)){
+      alert("Registered User!");
+      navigate(PagesRoutes.login);
+    }
   };
 
   const onInputEmailRegisterChange = (
