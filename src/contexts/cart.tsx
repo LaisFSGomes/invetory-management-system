@@ -1,14 +1,5 @@
 import React from "react";
 
-interface userLogin {
-  email: string;
-  password: string;
-};
-interface user {
-  name: string;
-  email: string;
-  password: string;
-};
 interface CartInfo {
   id: number;
   title: string;
@@ -42,8 +33,6 @@ interface CartContextProps {
   decrementCart: (id: number) => void;
   getAmountItems: () => number;
   getTotal: () => number;
-  RegisterPerson: (data: user) => void;
-  FindPerson: (data: user) => boolean;
 }
 
 export const CartContext = React.createContext<CartContextProps>(
@@ -53,8 +42,6 @@ export const CartContext = React.createContext<CartContextProps>(
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = React.useState<CartInfo[]>([]);
   const [products, setProducts] = React.useState<ProductInfo[]>([]);
-  const [users, setUsers] = React.useState<user[]>([]);
-
 
   const getProduct = (id: number) =>
     products.find(product => product.id === id);
@@ -101,19 +88,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
     setCart(cartList);
   };
-  const RegisterPerson = (data: user) => {
-    const usersList = [...users];
-    usersList.push({
-      name:  data.name,
-      email: data.email,
-      password: data.password
-    });
-    setUsers(usersList);
-  }
-  const FindPerson = (data: user) => {
-    const usersList = [...users];
-    return usersList.some(item => item.name === data.name);
-  }
 
   return (
     <CartContext.Provider
@@ -129,8 +103,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         decrementCart,
         getAmountItems,
         getTotal,
-        RegisterPerson,
-        FindPerson,
       }}
     >
       {children}

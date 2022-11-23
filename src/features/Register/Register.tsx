@@ -28,6 +28,8 @@ import {
   validateNumbers,
   validadeSequence,
 } from "utils/ValidadePassword";
+import { UserContext } from "contexts";
+import { useNavigate } from "react-router-dom";
 
 interface user {
   name: string;
@@ -36,20 +38,28 @@ interface user {
 };
 
 export const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [inputEmailRegister, setInputEmailRegister] = React.useState("");
   const [inputNameRegister, setInputNameRegister] = React.useState("");
   const [inputPasswordRegister, setInputPasswordRegister] = React.useState("");
   const [inputConfirmPasswordRegister, setInputConfirmPasswordRegister] =
     React.useState("");
-  const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
-  const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
   const [emailValid, setEmailValid] = React.useState<boolean>(false);
+  const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
+  const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
   const [lengthIsValid, setLengthIsValid] = React.useState<boolean>(false);
   const [specialCharIsValid, setSpecialCharIsValid] =
     React.useState<boolean>(false);
   const [lowerUpperNumberIsValid, setLowerUpperNumberIsValid] =
     React.useState<boolean>(false);
   const [sequenceIsValid, setSequenceIsValid] = React.useState<boolean>(false);
+
+  const { RegisterUser, users } = React.useContext(UserContext);
+  const onRegisterButtonClick = () => {
+    RegisterUser(inputNameRegister, inputEmailRegister, inputPasswordRegister);
+    alert("Usuário Cadastrado");
+    navigate(PagesRoutes.login);
+  };
 
   const onInputEmailRegisterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -76,7 +86,7 @@ export const Register: React.FC = () => {
   React.useEffect(() => {
     setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
     setPasswordValid(validatePassword(inputPasswordRegister));
-    setEmailValid(validateEmail(inputEmailRegister));
+    setEmailValid(validateEmail(inputEmailRegister) && inputEmailRegister!=="");
     setLengthIsValid(validateLength(inputPasswordRegister));
     setSpecialCharIsValid(validateSpecial(inputPasswordRegister));
     setLowerUpperNumberIsValid(
@@ -99,8 +109,9 @@ export const Register: React.FC = () => {
             id="email"
             type="email"
             helpText={
-              emailValid || inputEmailRegister === "" ? "" : "invalid email"
+              emailValid ? "" : "invalid email"
             }
+            colorHelp="red"
           />
           <Input
             label="Name"
@@ -200,7 +211,7 @@ export const Register: React.FC = () => {
             </List>
           </HelpPasswordContainer>
 
-          <Button disabled={!(passwordValid && passwordsMath)}>Register</Button>
+          <Button disabled={!(passwordValid && passwordsMath)} onClick={onRegisterButtonClick}>Register</Button>
         </LoginContainer>
         <Typography>
           Already have an account?{" "}
