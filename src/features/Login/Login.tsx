@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 import { PagesRoutes } from "features/constants";
 import { UserContext } from "contexts";
 import { useNavigate } from "react-router-dom";
+import { AlternativeLogins } from "components/AlternativeLogins";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ export const Login: React.FC = () => {
           type="password"
         />
          <Button onClick={onLoginButtonClick}>Login</Button>
+         
+         <AlternativeLogins message="login" />
       </LoginContainer>
       <Typography>
         Are you new here? <LinkRegister to = {PagesRoutes.register}>Create an account</LinkRegister>

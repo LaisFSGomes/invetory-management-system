@@ -1,19 +1,10 @@
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { AppBarResponsive, Footer } from "components";
 import { Input } from "components/Input";
 import { PagesRoutes } from "features/constants";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import React from "react";
 import {
   Button,
-  HelpPasswordContainer,
   LinkRegister,
   LoginContainer,
   LoginWrapper,
@@ -26,77 +17,75 @@ import {
   validateUpperCase,
   validateSpecial,
   validateNumbers,
-  validadeSequence,
+  validadeNumberSequence,
+  validadeCharSequence,
 } from "utils/ValidadePassword";
 import { UserContext } from "contexts";
 import { useNavigate } from "react-router-dom";
-
-interface user {
-  name: string;
-  email: string;
-  password: string;
-};
+import { AlternativeLogins } from "components/AlternativeLogins";
+import { PasswordRulesHelper } from "components/PasswordRulesHelper/PasswordRulesHelper";
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
-  const [inputEmailRegister, setInputEmailRegister] = React.useState("");
-  const [inputNameRegister, setInputNameRegister] = React.useState("");
-  const [inputPasswordRegister, setInputPasswordRegister] = React.useState("");
-  const [inputConfirmPasswordRegister, setInputConfirmPasswordRegister] =
-    React.useState("");
+  const { RegisterUser } = React.useContext(UserContext);
+
+  const [inputEmail, setInputEmail] = React.useState("");
+  const [inputName, setInputName] = React.useState("");
+  const [inputPassword, setInputPassword] = React.useState("");
+  const [inputConfirmPassword, setInputConfirmPassword] = React.useState("");
+
   const [emailValid, setEmailValid] = React.useState<boolean>(false);
   const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
   const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
   const [lengthIsValid, setLengthIsValid] = React.useState<boolean>(false);
-  const [specialCharIsValid, setSpecialCharIsValid] =
+  const [specialIsValid, setSpecialIsValid] = React.useState<boolean>(false);
+  const [lowerIsValid, setLowerIsValid] = React.useState<boolean>(false);
+  const [upperIsValid, setUpperIsValid] = React.useState<boolean>(false);
+  const [numberIsValid, setNumberIsValid] = React.useState<boolean>(false);
+  const [sequenceCharIsValid, setSequenceCharIsValid] =
     React.useState<boolean>(false);
-  const [lowerUpperNumberIsValid, setLowerUpperNumberIsValid] =
+  const [sequenceNumberIsValid, setSequenceNumberIsValid] =
     React.useState<boolean>(false);
-  const [sequenceIsValid, setSequenceIsValid] = React.useState<boolean>(false);
 
-  const { RegisterUser, users } = React.useContext(UserContext);
   const onRegisterButtonClick = () => {
-    if(RegisterUser(inputNameRegister, inputEmailRegister, inputPasswordRegister)){
+    if (RegisterUser(inputName, inputEmail, inputPassword)) {
       alert("Registered User!");
       navigate(PagesRoutes.login);
     }
   };
 
-  const onInputEmailRegisterChange = (
+  const onInputEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputEmail(e.target.value);
+  };
+  const onInputNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputName(e.target.value);
+  };
+  const onInputPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPassword(e.target.value);
+    setPasswordsMath(inputPassword === inputConfirmPassword);
+  };
+  const onInputConfirmPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setInputEmailRegister(e.target.value);
+    setInputConfirmPassword(e.target.value);
+    setPasswordsMath(inputPassword === inputConfirmPassword);
   };
-  const onInputNameRegisterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setInputNameRegister(e.target.value);
-  };
-  const onInputPasswordRegisterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setInputPasswordRegister(e.target.value);
-    setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
-  };
-  const onInputConfirmPasswordRegisterChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setInputConfirmPasswordRegister(e.target.value);
-    setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
-  };
+
   React.useEffect(() => {
-    setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
-    setPasswordValid(validatePassword(inputPasswordRegister));
-    setEmailValid(validateEmail(inputEmailRegister));
-    setLengthIsValid(validateLength(inputPasswordRegister));
-    setSpecialCharIsValid(validateSpecial(inputPasswordRegister));
-    setLowerUpperNumberIsValid(
-      validateLowerCase(inputPasswordRegister) &&
-        validateUpperCase(inputPasswordRegister) &&
-        validateNumbers(inputPasswordRegister),
-    );
-    setSequenceIsValid(validadeSequence(inputPasswordRegister));
-  }, [inputPasswordRegister, inputConfirmPasswordRegister, inputEmailRegister]);
+    setEmailValid(validateEmail(inputEmail));
+  }, [inputEmail]);
+
+  React.useEffect(() => {
+    setPasswordsMath(inputPassword === inputConfirmPassword);
+    setPasswordValid(validatePassword(inputPassword));
+    setLengthIsValid(validateLength(inputPassword));
+    setSpecialIsValid(validateSpecial(inputPassword));
+    setLowerIsValid(validateLowerCase(inputPassword));
+    setUpperIsValid(validateUpperCase(inputPassword));
+    setNumberIsValid(validateNumbers(inputPassword));
+    setSequenceCharIsValid(validadeCharSequence(inputPassword));
+    setSequenceNumberIsValid(validadeNumberSequence(inputPassword));
+  }, [inputPassword, inputConfirmPassword]);
 
   return (
     <React.Fragment>
@@ -105,43 +94,39 @@ export const Register: React.FC = () => {
         <LoginContainer>
           <Input
             label="Email"
-            onChange={onInputEmailRegisterChange}
-            value={inputEmailRegister}
+            onChange={onInputEmailChange}
+            value={inputEmail}
             id="email"
             type="email"
-            helpText={
-              (emailValid || inputEmailRegister==="") ? "" : "invalid email"
-            }
+            helpText={emailValid || inputEmail === "" ? "" : "Email inválido"}
             colorHelp="red"
           />
           <Input
             label="Name"
-            onChange={onInputNameRegisterChange}
-            value={inputNameRegister}
+            onChange={onInputNameChange}
+            value={inputName}
             id="name"
             type="text"
           />
           <Input
             label="Password"
-            onChange={onInputPasswordRegisterChange}
-            value={inputPasswordRegister}
+            onChange={onInputPasswordChange}
+            value={inputPassword}
             id="password"
             type="password"
             helpText={
-              passwordValid || inputPasswordRegister === ""
-                ? ""
-                : "invalid password"
+              passwordValid || inputPassword === "" ? "" : "invalid password"
             }
             colorHelp="red"
           />
           <Input
             label="Confirm Password"
-            onChange={onInputConfirmPasswordRegisterChange}
-            value={inputConfirmPasswordRegister}
+            onChange={onInputConfirmPasswordChange}
+            value={inputConfirmPassword}
             id="password"
             type="password"
             helpText={
-              inputConfirmPasswordRegister === ""
+              inputConfirmPassword === ""
                 ? ""
                 : passwordsMath
                 ? "passwords match"
@@ -150,69 +135,31 @@ export const Register: React.FC = () => {
             colorHelp={passwordsMath ? "green" : "red"}
           />
 
-          <HelpPasswordContainer>
-            <Typography>Password's Rules</Typography>
-            <List>
-              <ListItem
-                disablePadding
-                className={lengthIsValid ? "right" : "wrong"}
-              >
-                <ListItemIcon className={lengthIsValid ? "right" : "wrong"}>
-                  {lengthIsValid ? (
-                    <CheckCircleRoundedIcon />
-                  ) : (
-                    <CancelRoundedIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary="between 8 and 18 characters" />
-              </ListItem>
+          <PasswordRulesHelper
+            lenghtIsValid={lengthIsValid}
+            specialCharIsValid={specialIsValid}
+            upperIsValid={upperIsValid}
+            lowerIsValid={lowerIsValid}
+            numberIsValid={numberIsValid}
+            sequenceCharIsValid={sequenceCharIsValid}
+            sequenceNumberIsValid={sequenceNumberIsValid}
+          />
 
-              <ListItem
-                disablePadding
-                className={specialCharIsValid ? "right" : "wrong"}
-              >
-                <ListItemIcon
-                  className={specialCharIsValid ? "right" : "wrong"}
-                >
-                  {specialCharIsValid ? (
-                    <CheckCircleRoundedIcon />
-                  ) : (
-                    <CancelRoundedIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary="at least one special character" />
-              </ListItem>
+          <Button
+            disabled={
+              !(
+                passwordValid &&
+                passwordsMath &&
+                emailValid &&
+                inputName !== ""
+              )
+            }
+            onClick={onRegisterButtonClick}
+          >
+            Register
+          </Button>
 
-              <ListItem
-                disablePadding
-                className={ lowerUpperNumberIsValid ?  "right" : "wrong"}
-              >
-                <ListItemIcon className={lowerUpperNumberIsValid ? "right" : "wrong"}>
-                {lowerUpperNumberIsValid ? (
-                    <CheckCircleRoundedIcon />
-                  ) : (
-                    <CancelRoundedIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary="contain uppercase, lowercase and numbers" />
-              </ListItem>
-
-              <ListItem
-                disablePadding
-                className={ sequenceIsValid ?  "right" : "wrong" }>
-                <ListItemIcon className={sequenceIsValid ? "right" : "wrong"}>
-                {sequenceIsValid ? (
-                    <CheckCircleRoundedIcon />
-                  ) : (
-                    <CancelRoundedIcon />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary="cannot have letters or numbers in sequence" />
-              </ListItem>
-            </List>
-          </HelpPasswordContainer>
-
-          <Button disabled={!(passwordValid && passwordsMath)} onClick={onRegisterButtonClick}>Register</Button>
+          <AlternativeLogins message="register" />
         </LoginContainer>
         <Typography>
           Already have an account?{" "}
