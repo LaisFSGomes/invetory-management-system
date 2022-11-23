@@ -87,7 +87,7 @@ export const Register: React.FC = () => {
   React.useEffect(() => {
     setPasswordsMath(inputPasswordRegister === inputConfirmPasswordRegister);
     setPasswordValid(validatePassword(inputPasswordRegister));
-    setEmailValid(validateEmail(inputEmailRegister) && inputEmailRegister!=="");
+    setEmailValid(validateEmail(inputEmailRegister));
     setLengthIsValid(validateLength(inputPasswordRegister));
     setSpecialCharIsValid(validateSpecial(inputPasswordRegister));
     setLowerUpperNumberIsValid(
@@ -110,7 +110,7 @@ export const Register: React.FC = () => {
             id="email"
             type="email"
             helpText={
-              emailValid ? "" : "invalid email"
+              (emailValid || inputEmailRegister==="") ? "" : "invalid email"
             }
             colorHelp="red"
           />
