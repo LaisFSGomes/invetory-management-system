@@ -69,7 +69,7 @@ export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
               <CancelRoundedIcon />
             )}
           </ListItemIcon>
-          <ListItemText primary="Between 8 and 18 characters" />
+          <ListItemText primary="Between 8 and 16 characters" />
         </ListItem>
 
         <ListItem

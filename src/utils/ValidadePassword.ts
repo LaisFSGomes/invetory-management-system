@@ -22,7 +22,7 @@ export const validadeCharSequence = (text: string) => !sequenceName.test(text);
 export const validadeNumberSequence = (text: string) => !sequenceNumber.test(text);
 
 export const validateLength = (text: string) =>
-  text.length >= 8 && text.length <= 18;
+  text.length >= 8 && text.length <= 16;
 
 export const validatePassword = (password: string) => {
   if (password === "") return false;
