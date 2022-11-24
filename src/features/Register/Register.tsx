@@ -12,13 +12,6 @@ import {
 import {
   validatePassword,
   validateEmail,
-  validateLength,
-  validateLowerCase,
-  validateUpperCase,
-  validateSpecial,
-  validateNumbers,
-  validadeNumberSequence,
-  validadeCharSequence,
 } from "utils/ValidadePassword";
 import { UserContext } from "contexts";
 import { useNavigate } from "react-router-dom";
@@ -37,15 +30,6 @@ export const Register: React.FC = () => {
   const [emailValid, setEmailValid] = React.useState<boolean>(false);
   const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
   const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
-  const [lengthIsValid, setLengthIsValid] = React.useState<boolean>(false);
-  const [specialIsValid, setSpecialIsValid] = React.useState<boolean>(false);
-  const [lowerIsValid, setLowerIsValid] = React.useState<boolean>(false);
-  const [upperIsValid, setUpperIsValid] = React.useState<boolean>(false);
-  const [numberIsValid, setNumberIsValid] = React.useState<boolean>(false);
-  const [sequenceCharIsValid, setSequenceCharIsValid] =
-    React.useState<boolean>(false);
-  const [sequenceNumberIsValid, setSequenceNumberIsValid] =
-    React.useState<boolean>(false);
 
   const onRegisterButtonClick = () => {
     if (RegisterUser(inputName, inputEmail, inputPassword)) {
@@ -74,18 +58,15 @@ export const Register: React.FC = () => {
   React.useEffect(() => {
     setEmailValid(validateEmail(inputEmail));
   }, [inputEmail]);
-
-  React.useEffect(() => {
-    setPasswordsMath(inputPassword === inputConfirmPassword);
+  
+  React.useEffect(()=>{
     setPasswordValid(validatePassword(inputPassword));
-    setLengthIsValid(validateLength(inputPassword));
-    setSpecialIsValid(validateSpecial(inputPassword));
-    setLowerIsValid(validateLowerCase(inputPassword));
-    setUpperIsValid(validateUpperCase(inputPassword));
-    setNumberIsValid(validateNumbers(inputPassword));
-    setSequenceCharIsValid(validadeCharSequence(inputPassword));
-    setSequenceNumberIsValid(validadeNumberSequence(inputPassword));
+    setPasswordsMath(inputPassword === inputConfirmPassword);
   }, [inputPassword, inputConfirmPassword]);
+
+  // React.useEffect(() => {
+  //   setPasswordsMath(inputPassword === inputConfirmPassword);
+  // }, [inputConfirmPassword]);
 
   return (
     <React.Fragment>
@@ -115,7 +96,7 @@ export const Register: React.FC = () => {
             id="password"
             type="password"
             helpText={
-              passwordValid || inputPassword === "" ? "" : "invalid password"
+              (passwordValid || inputPassword === "") ? "" : "invalid password"
             }
             colorHelp="red"
           />
@@ -135,15 +116,7 @@ export const Register: React.FC = () => {
             colorHelp={passwordsMath ? "green" : "red"}
           />
 
-          <PasswordRulesHelper
-            lenghtIsValid={lengthIsValid}
-            specialCharIsValid={specialIsValid}
-            upperIsValid={upperIsValid}
-            lowerIsValid={lowerIsValid}
-            numberIsValid={numberIsValid}
-            sequenceCharIsValid={sequenceCharIsValid}
-            sequenceNumberIsValid={sequenceNumberIsValid}
-          />
+          <PasswordRulesHelper password = {inputPassword}/>
 
           <Button
             disabled={

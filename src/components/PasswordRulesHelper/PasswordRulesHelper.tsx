@@ -9,43 +9,62 @@ import {
   Typography,
 } from "@mui/material";
 import { HelpPasswordContainer } from "./PasswordRulesHelper.styles";
+import {
+  validateLength,
+  validateLowerCase,
+  validateUpperCase,
+  validateSpecial,
+  validateNumbers,
+  validadeNumberSequence,
+  validadeCharSequence,
+} from "utils/ValidadePassword";
 
 interface PasswordRulesHelperProps {
-  lenghtIsValid: boolean;
-  specialCharIsValid: boolean;
-  upperIsValid: boolean;
-  lowerIsValid: boolean;
-  numberIsValid: boolean;
-  sequenceNumberIsValid: boolean;
-  sequenceCharIsValid: boolean;
+  password: string;
 }
 
 export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
-  lenghtIsValid,
-  specialCharIsValid,
-  upperIsValid,
-  lowerIsValid,
-  numberIsValid,
-  sequenceNumberIsValid,
-  sequenceCharIsValid,
+  password,
 }) => {
+  const [length, setLength] = React.useState<boolean>(false);
+  const [specialChar, setSpecialChar] = React.useState<boolean>(false);
+  const [upper, setUpper] = React.useState<boolean>(false);
+  const [lower, setLower] = React.useState<boolean>(false);
+  const [number, setNumber] = React.useState<boolean>(false);
+  const [sequenceNum, setSequenceNum] = React.useState<boolean>(false);
+  const [sequenceChar, setSequenceChar] = React.useState<boolean>(false);
+
+  const validade = () => {
+    setLength(validateLength(password));
+    setSpecialChar(validateSpecial(password));
+    setUpper(validateUpperCase(password));
+    setLower(validateLowerCase(password));
+    setNumber(validateNumbers(password));
+    setSequenceNum(validadeNumberSequence(password));
+    setSequenceChar(validadeCharSequence(password));
+  }
+  React.useEffect(()=> {
+    validade();
+  }, [password])
+
+  
   return (
     <HelpPasswordContainer>
       <Typography>Password's Rules</Typography>
       <List>
-        <ListItem disablePadding className={lenghtIsValid ? "right" : "wrong"}>
-          <ListItemIcon className={lenghtIsValid ? "right" : "wrong"}>
-            {lenghtIsValid ? <CheckCircleRoundedIcon /> : <CancelRoundedIcon />}
+        <ListItem disablePadding className={length ? "right" : "wrong"}>
+          <ListItemIcon className={length ? "right" : "wrong"}>
+            {length ? <CheckCircleRoundedIcon /> : <CancelRoundedIcon />}
           </ListItemIcon>
           <ListItemText primary="At least 8 characters" />
         </ListItem>
 
         <ListItem
           disablePadding
-          className={specialCharIsValid ? "right" : "wrong"}
+          className={specialChar ? "right": "wrong"}
         >
-          <ListItemIcon className={specialCharIsValid ? "right" : "wrong"}>
-            {specialCharIsValid ? (
+          <ListItemIcon className={specialChar ? "right" : "wrong"}>
+            {specialChar ? (
               <CheckCircleRoundedIcon />
             ) : (
               <CancelRoundedIcon />
@@ -57,15 +76,15 @@ export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
         <ListItem
           disablePadding
           className={
-            upperIsValid && lowerIsValid && numberIsValid ? "right" : "wrong"
+            upper && lower && number ? "right" : "wrong"
           }
         >
           <ListItemIcon
             className={
-              upperIsValid && lowerIsValid && numberIsValid ? "right" : "wrong"
+              upper && lower && number ? "right" : "wrong"
             }
           >
-            {upperIsValid && lowerIsValid && numberIsValid ? (
+            {upper && lower && number ? (
               <CheckCircleRoundedIcon />
             ) : (
               <CancelRoundedIcon />
@@ -77,21 +96,41 @@ export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
         <ListItem
           disablePadding
           className={
-            sequenceNumberIsValid && sequenceCharIsValid ? "right" : "wrong"
+            sequenceNum ? "right" : "wrong"
           }
         >
           <ListItemIcon
             className={
-              sequenceNumberIsValid && sequenceCharIsValid ? "right" : "wrong"
+              sequenceNum ? "right" : "wrong"
             }
           >
-            {sequenceNumberIsValid && sequenceCharIsValid ? (
+            {sequenceNum ? (
               <CheckCircleRoundedIcon />
             ) : (
               <CancelRoundedIcon />
             )}
           </ListItemIcon>
           <ListItemText primary="Cannot have sequence of numbers" />
+        </ListItem>
+
+        <ListItem
+          disablePadding
+          className={
+           sequenceChar ? "right" : "wrong"
+          }
+        >
+          <ListItemIcon
+            className={
+              sequenceChar ? "right" : "wrong"
+            }
+          >
+            {sequenceChar ? (
+              <CheckCircleRoundedIcon />
+            ) : (
+              <CancelRoundedIcon />
+            )}
+          </ListItemIcon>
+          <ListItemText primary="Cannot have sequence of letters" />
         </ListItem>
       </List>
     </HelpPasswordContainer>
