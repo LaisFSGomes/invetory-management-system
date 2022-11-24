@@ -27,9 +27,9 @@ export const Register: React.FC = () => {
   const [inputPassword, setInputPassword] = React.useState("");
   const [inputConfirmPassword, setInputConfirmPassword] = React.useState("");
 
-  const [emailValid, setEmailValid] = React.useState<boolean>(false);
-  const [passwordValid, setPasswordValid] = React.useState<boolean>(false);
-  const [passwordsMath, setPasswordsMath] = React.useState<boolean>(false);
+  let passwordValid = validatePassword(inputPassword);
+  let passwordMatch = (inputPassword === inputConfirmPassword);
+  let emailValid = validateEmail(inputEmail);
 
   const onRegisterButtonClick = () => {
     if (RegisterUser(inputName, inputEmail, inputPassword)) {
@@ -37,7 +37,6 @@ export const Register: React.FC = () => {
       navigate(PagesRoutes.login);
     }
   };
-
   const onInputEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(e.target.value);
   };
@@ -46,27 +45,10 @@ export const Register: React.FC = () => {
   };
   const onInputPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputPassword(e.target.value);
-    setPasswordsMath(inputPassword === inputConfirmPassword);
   };
-  const onInputConfirmPasswordChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const onInputConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputConfirmPassword(e.target.value);
-    setPasswordsMath(inputPassword === inputConfirmPassword);
   };
-
-  React.useEffect(() => {
-    setEmailValid(validateEmail(inputEmail));
-  }, [inputEmail]);
-  
-  React.useEffect(()=>{
-    setPasswordValid(validatePassword(inputPassword));
-    setPasswordsMath(inputPassword === inputConfirmPassword);
-  }, [inputPassword, inputConfirmPassword]);
-
-  // React.useEffect(() => {
-  //   setPasswordsMath(inputPassword === inputConfirmPassword);
-  // }, [inputConfirmPassword]);
 
   return (
     <React.Fragment>
@@ -109,11 +91,11 @@ export const Register: React.FC = () => {
             helpText={
               inputConfirmPassword === ""
                 ? ""
-                : passwordsMath
+                : passwordMatch
                 ? "passwords match"
                 : "passwords don't match"
             }
-            colorHelp={passwordsMath ? "green" : "red"}
+            colorHelp={passwordMatch ? "green" : "red"}
           />
 
           <PasswordRulesHelper password = {inputPassword}/>
@@ -122,7 +104,7 @@ export const Register: React.FC = () => {
             disabled={
               !(
                 passwordValid &&
-                passwordsMath &&
+                passwordMatch &&
                 emailValid &&
                 inputName !== ""
               )

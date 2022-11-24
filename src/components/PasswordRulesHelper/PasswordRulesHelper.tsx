@@ -46,7 +46,6 @@ export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
   React.useEffect(()=> {
     validade();
   }, [password])
-
   
   return (
     <HelpPasswordContainer>
