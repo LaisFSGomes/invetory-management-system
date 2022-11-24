@@ -51,19 +51,19 @@ export const PasswordRulesHelper: React.FC<PasswordRulesHelperProps> = ({
     <HelpPasswordContainer>
       <Typography>Password's Rules</Typography>
       <List>
-        <ListItem disablePadding className={length ? "right" : "wrong"}>
-          <ListItemIcon className={length ? "right" : "wrong"}>
-            {length ? <CheckCircleRoundedIcon /> : <CancelRoundedIcon />}
+        <ListItem disablePadding className={specialChar ? "right" : "wrong"}>
+          <ListItemIcon className={specialChar ? "right" : "wrong"}>
+            {specialChar ? <CheckCircleRoundedIcon /> : <CancelRoundedIcon />}
           </ListItemIcon>
-          <ListItemText primary="At least 8 characters" />
+          <ListItemText primary="At least one special character" />
         </ListItem>
 
         <ListItem
           disablePadding
-          className={specialChar ? "right": "wrong"}
+          className={length ? "right": "wrong"}
         >
-          <ListItemIcon className={specialChar ? "right" : "wrong"}>
-            {specialChar ? (
+          <ListItemIcon className={length ? "right" : "wrong"}>
+            {length ? (
               <CheckCircleRoundedIcon />
             ) : (
               <CancelRoundedIcon />
